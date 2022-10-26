@@ -1,14 +1,31 @@
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useState, useContext } from "react";
+// import React, { useContext, useState } from "react";
 import data from "../../utils/data";
 import Link from "next/link";
 import Image from "next/image";
 import Layout from "../../components/Layout";
+import { ACTIONS, Store } from "../../utils/Store";
 
 const ProductDetails = () => {
   const { query } = useRouter();
   const { slug } = query;
   const product = data.products.find((x) => x.slug === slug);
+  const { state, dispatch } = useContext(Store);
+  const [quantity, setQuantity] = useState(1);
+
+  const handleAddToCart = () => {
+    if (quantity < product.countInStock) {
+      setQuantity(quantity + 1);
+    } else {
+      alert("Out of stock");
+    }
+
+    dispatch({
+      type: ACTIONS.CART_ADD_ITEM,
+      payload: { ...product, quantity: quantity },
+    });
+  };
 
   if (!product) {
     return (
@@ -61,7 +78,12 @@ const ProductDetails = () => {
                   {product.countInStock > 0 ? "In stock" : "Unavailable"}
                 </div>
               </div>
-              <button className="primary-button w-full">Add to cart</button>
+              <button
+                className="primary-button w-full"
+                onClick={handleAddToCart}
+              >
+                Add to cart
+              </button>
             </div>
           </div>
         </div>

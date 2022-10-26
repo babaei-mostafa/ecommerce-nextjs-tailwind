@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Search, ShoppingCartOutlined, Close } from "@material-ui/icons";
 import { Badge } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
+import {Store} from '../utils/Store'
+
 
 const Navbar = () => {
   // style
@@ -12,6 +14,10 @@ const Navbar = () => {
 
   // state
   const [nav, setNav] = useState(false);
+
+  // context
+  const {state, dispatch} = useContext(Store)
+  const {cart} = state
 
   return (
     <div className="navbar max-w-[1640px] mx-auto px-8 h-[60px] shadow-md flex justify-between items-center relative z-10">
@@ -35,7 +41,7 @@ const Navbar = () => {
         <div className={style.rightDiv}>Register</div>
         <div className={style.rightDiv}>Sign In</div>
         <div className={style.rightDiv}>
-          <Badge badgeContent={2} color="primary">
+          <Badge badgeContent={cart.cartItems.reduce((a,c)=>a + c.quantity, 0)} color="primary">
             <ShoppingCartOutlined />
           </Badge>
         </div>
