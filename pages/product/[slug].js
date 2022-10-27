@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
-import React, { useState, useContext } from "react";
-// import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import data from "../../utils/data";
 import Link from "next/link";
 import Image from "next/image";
@@ -18,9 +17,7 @@ const ProductDetails = () => {
     cart: { cartItems },
   } = state;
 
-  // state
-  // const [quantity, setQuantity] = useState(1);
-
+  // add to cart handler
   const handleAddToCart = () => {
     const existItem = cartItems.find((item) => item.slug === product.slug);
     const quantity = existItem ? existItem.quantity + 1 : 1;
