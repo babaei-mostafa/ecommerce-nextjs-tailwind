@@ -7,8 +7,8 @@ import Layout from "../../components/Layout";
 import { ACTIONS, Store } from "../../utils/Store";
 
 const ProductDetails = () => {
-  const { query } = useRouter();
-  const { slug } = query;
+  const router = useRouter();
+  const { slug } = router.query;
   const product = data.products.find((x) => x.slug === slug);
 
   // constext
@@ -16,6 +16,10 @@ const ProductDetails = () => {
   const {
     cart: { cartItems },
   } = state;
+
+  // const redirectToCart = (url) => {
+  //   router.push(url);
+  // };
 
   // add to cart handler
   const handleAddToCart = () => {
@@ -30,6 +34,7 @@ const ProductDetails = () => {
       type: ACTIONS.CART_ADD_ITEM,
       payload: { ...product, quantity },
     });
+    router.push("/cart");
   };
 
   if (!product) {
