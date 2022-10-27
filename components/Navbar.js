@@ -2,8 +2,8 @@ import React, { useState, useContext } from "react";
 import { Search, ShoppingCartOutlined, Close } from "@material-ui/icons";
 import { Badge } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
-import {Store} from '../utils/Store'
-
+import { Store } from "../utils/Store";
+import Link from "next/link";
 
 const Navbar = () => {
   // style
@@ -16,8 +16,8 @@ const Navbar = () => {
   const [nav, setNav] = useState(false);
 
   // context
-  const {state, dispatch} = useContext(Store)
-  const {cart} = state
+  const { state, dispatch } = useContext(Store);
+  const { cart } = state;
 
   return (
     <div className="navbar max-w-[1640px] mx-auto px-8 h-[60px] shadow-md flex justify-between items-center relative z-10">
@@ -34,16 +34,23 @@ const Navbar = () => {
       </div>
 
       {/* Logo */}
-      <div className={nav ? "hidden" : "font-bold text-lg"}>Shopestoon</div>
+      <Link href="/">
+        <a className={nav ? "hidden" : "font-bold text-lg"}>Shopestoon</a>
+      </Link>
 
       {/* Right Div */}
       <div className="right hidden md:flex items-center justify-end">
         <div className={style.rightDiv}>Register</div>
         <div className={style.rightDiv}>Sign In</div>
         <div className={style.rightDiv}>
-          <Badge badgeContent={cart.cartItems.reduce((a,c)=>a + c.quantity, 0)} color="primary">
-            <ShoppingCartOutlined />
-          </Badge>
+          <Link href="/cart">
+            <Badge
+              badgeContent={cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
+              color="primary"
+            >
+              <ShoppingCartOutlined />
+            </Badge>
+          </Link>
         </div>
       </div>
 

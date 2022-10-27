@@ -11,19 +11,27 @@ const ProductDetails = () => {
   const { query } = useRouter();
   const { slug } = query;
   const product = data.products.find((x) => x.slug === slug);
+
+  // constext
   const { state, dispatch } = useContext(Store);
-  const [quantity, setQuantity] = useState(1);
+  const {
+    cart: { cartItems },
+  } = state;
+
+  // state
+  // const [quantity, setQuantity] = useState(1);
 
   const handleAddToCart = () => {
-    if (quantity < product.countInStock) {
-      setQuantity(quantity + 1);
-    } else {
-      alert("Out of stock");
-    }
+    const existItem = cartItems.find((item) => item.slug === product.slug);
+    const quantity = existItem ? existItem.quantity + 1 : 1;
 
+    if (quantity > product.countInStock) {
+      alert("Out of stock");
+      return;
+    }
     dispatch({
       type: ACTIONS.CART_ADD_ITEM,
-      payload: { ...product, quantity: quantity },
+      payload: { ...product, quantity },
     });
   };
 
@@ -41,6 +49,9 @@ const ProductDetails = () => {
         <div className="my-2">
           <Link href="/">
             <a>Back to Home</a>
+          </Link>
+          <Link href="/cart">
+            <a>Go to Cart</a>
           </Link>
         </div>
         <div className="grid md:grid-cols-4 md:gap-3">

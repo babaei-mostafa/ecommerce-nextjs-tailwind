@@ -16,7 +16,7 @@ const Layout = ({ title, children }) => {
           <Announce />
           <Navbar />
         </header>
-        <main>{children}</main>
+        <main className="flex-1">{children}</main>
         <footer>
           <Footer />
         </footer>
