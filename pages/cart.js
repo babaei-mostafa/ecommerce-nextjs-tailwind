@@ -4,10 +4,12 @@ import { ACTIONS, Store } from "../utils/Store";
 import Link from "next/link";
 import Image from "next/image";
 import { Close } from "@material-ui/icons";
+import { useRouter } from "next/router";
 
 const CartScreen = () => {
   const { state, dispatch } = useContext(Store);
   const { cartItems } = state.cart;
+  const router = useRouter();
 
   // remove from cart handler
   const handleRemove = (slug) => {
@@ -30,7 +32,7 @@ const CartScreen = () => {
                   <thead className="border-b">
                     <tr>
                       <th className="p-5 text-left">Item</th>
-                      <th className="p-5 text-right">Quantity</th>
+                      <th className="p-5 text-right ">Quantity</th>
                       <th className="p-5 text-right">Price</th>
                       <th className="p-5">Action</th>
                     </tr>
@@ -52,6 +54,7 @@ const CartScreen = () => {
                           </Link>
                         </td>
                         <td className="p-5 text-right">{item.quantity}</td>
+                        <td className="p-5 text-right">{item.quantity}</td>
                         <td className="p-5 text-right">${item.price}</td>
                         <td
                           className="text-center"
@@ -63,6 +66,24 @@ const CartScreen = () => {
                     ))}
                   </tbody>
                 </table>
+              </div>
+              <div className="card p-5">
+                <ul>
+                  <li>
+                    <div className="pb-3 text-xl">
+                      Subtotal({cartItems.reduce((a, c) => a + c.quantity, 0)}):
+                      ${cartItems.reduce((a, c) => a + c.quantity * c.price, 0)}
+                    </div>
+                  </li>
+                  <li>
+                    <button
+                      className="primary-button w-full"
+                      onClick={() => router.push("/shopping")}
+                    >
+                      Checkout
+                    </button>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
