@@ -17,10 +17,6 @@ const ProductDetails = () => {
     cart: { cartItems },
   } = state;
 
-  // const redirectToCart = (url) => {
-  //   router.push(url);
-  // };
-
   // add to cart handler
   const handleAddToCart = () => {
     const existItem = cartItems.find((item) => item.slug === product.slug);

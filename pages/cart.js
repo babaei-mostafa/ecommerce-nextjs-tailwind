@@ -16,6 +16,17 @@ const CartScreen = () => {
     dispatch({ type: ACTIONS.CART_REMOVE_ITEM, payload: slug });
   };
 
+  // update item handler
+  const handleUpdatedItem = (item, e) => {
+    dispatch({
+      type: ACTIONS.CART_ADD_ITEM,
+      payload: {
+        ...item,
+        quantity: Number(e),
+      },
+    });
+  };
+
   return (
     <Layout title="Shopping Cart">
       <div className="max-w-[1640px] mx-auto p-4 my-8">
@@ -53,8 +64,21 @@ const CartScreen = () => {
                             </a>
                           </Link>
                         </td>
-                        <td className="p-5 text-right">{item.quantity}</td>
-                        <td className="p-5 text-right">{item.quantity}</td>
+                        <td className="p-5 text-right">
+                          <select
+                            name="quantity"
+                            id=""
+                            value={item.quantity}
+                            onChange={(e) =>
+                              handleUpdatedItem(item, e.target.value)
+                            }
+                            className="px-2 py-1"
+                          >
+                            {[...Array(item.countInStock).keys()].map((x) => (
+                              <option key={x + 1}>{x + 1}</option>
+                            ))}
+                          </select>
+                        </td>
                         <td className="p-5 text-right">${item.price}</td>
                         <td
                           className="text-center"

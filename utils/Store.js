@@ -32,7 +32,7 @@ const cartReducer = (state, action) => {
       const cartItems = state.cart.cartItems.filter(
         (item) => item.slug !== action.payload
       );
-      return { ...state, cart: { ...state.caer, cartItems } };
+      return { ...state, cart: { ...state.cart, cartItems } };
     }
     default:
       return state;
