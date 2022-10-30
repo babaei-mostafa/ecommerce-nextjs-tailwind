@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Close } from "@material-ui/icons";
 import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
 
 const CartScreen = () => {
   const { state, dispatch } = useContext(Store);
@@ -117,4 +118,4 @@ const CartScreen = () => {
   );
 };
 
-export default CartScreen;
+export default dynamic(() => Promise.resolve(CartScreen), { ssr: false });

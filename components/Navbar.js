@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Search, ShoppingCartOutlined, Close } from "@material-ui/icons";
 import { Badge } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -14,10 +14,15 @@ const Navbar = () => {
 
   // state
   const [nav, setNav] = useState(false);
+  const [cartItemsCount, setCartItemsCount] = useState(0);
 
   // context
   const { state, dispatch } = useContext(Store);
   const { cart } = state;
+
+  useEffect(() => {
+    setCartItemsCount(cart.cartItems.reduce((a, c) => a + c.quantity, 0));
+  }, [cart.cartItems]);
 
   return (
     <div className="navbar max-w-[1640px] mx-auto px-8 h-[60px] shadow-md flex justify-between items-center relative z-10">
@@ -44,10 +49,7 @@ const Navbar = () => {
         <div className={style.rightDiv}>Sign In</div>
         <div className={style.rightDiv}>
           <Link href="/cart">
-            <Badge
-              badgeContent={cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
-              color="primary"
-            >
+            <Badge badgeContent={cartItemsCount} color="primary">
               <ShoppingCartOutlined />
             </Badge>
           </Link>
