@@ -1,3 +1,4 @@
+"use client";
 import { Close } from "@material-ui/icons";
 import React, { useState } from "react";
 

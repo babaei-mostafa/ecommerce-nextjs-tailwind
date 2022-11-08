@@ -1,10 +1,12 @@
+"use client";
 import React, { useState } from "react";
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@material-ui/icons";
-import { ApiSlides } from "../componentApi/SliderApi";
+import { ApiSlides } from "../../componentApi/SliderApi";
+import Image from "next/image";
 
 const Slider = () => {
   // states
-  const [slides, setSlides] = useState(ApiSlides);
+  const [slides] = useState(ApiSlides);
   const [activeSlide, setActiveSlide] = useState(0);
 
   // functions
@@ -37,10 +39,12 @@ const Slider = () => {
           if (index === activeSlide) {
             return (
               <div key={index} className="relative flex justify-center">
-                <img
+                <Image
                   src={slide.src}
                   alt=""
-                  className="w-[1640px] h-[500px] object-cover"
+                  className="object-cover"
+                  width={1640}
+                  height={500}
                 />
                 <div className="absolute w-full h-full top-0 left-0 bg-gray-900/40 flex flex-col justify-center">
                   <h1 className="px-4 text-yellow-400 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold">

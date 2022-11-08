@@ -1,8 +1,9 @@
+"use client";
 import React, { useState, useContext, useEffect } from "react";
 import { Search, ShoppingCartOutlined, Close } from "@material-ui/icons";
 import { Badge } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
-import { Store } from "../utils/Store";
+import { Store } from "../../utils/Store";
 import Link from "next/link";
 
 const Navbar = () => {
@@ -39,8 +40,8 @@ const Navbar = () => {
       </div>
 
       {/* Logo */}
-      <Link href="/">
-        <a className={nav ? "hidden" : "font-bold text-lg"}>Shopestoon</a>
+      <Link href="/" className={nav ? "hidden" : "font-bold text-lg"}>
+        Shopestoon
       </Link>
 
       {/* Right Div */}

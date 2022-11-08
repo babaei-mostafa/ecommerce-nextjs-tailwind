@@ -1,5 +1,5 @@
 import React from "react";
-import data from "../utils/data";
+import data from "../../utils/data";
 import ProductItem from "./ProductItem";
 
 const ProductsList = () => {
