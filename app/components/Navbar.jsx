@@ -5,6 +5,7 @@ import { Badge } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import { Store } from "../../utils/Store";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 const Navbar = () => {
   // style
@@ -20,6 +21,8 @@ const Navbar = () => {
   // context
   const { state } = useContext(Store);
   const { cart } = state;
+
+  const { status, data: session } = useSession();
 
   useEffect(() => {
     setCartItemsCount(cart.cartItems.reduce((a, c) => a + c.quantity, 0));
@@ -47,7 +50,17 @@ const Navbar = () => {
       {/* Right Div */}
       <div className="right hidden md:flex items-center justify-end">
         <div className={style.rightDiv}>Register</div>
-        <div className={style.rightDiv}>Sign In</div>
+
+        {status === "loading" ? (
+          "loading"
+        ) : session?.user ? (
+          session.user.name
+        ) : (
+          <Link href="/login" className={style.rightDiv}>
+            Login
+          </Link>
+        )}
+
         <div className={style.rightDiv}>
           <Link href="/cart">
             <Badge badgeContent={cartItemsCount} color="primary">

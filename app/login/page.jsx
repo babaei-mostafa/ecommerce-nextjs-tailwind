@@ -2,15 +2,42 @@
 import React from "react";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import { signIn, useSession } from "next-auth/react";
+import { toast } from "react-toastify";
+import { getError } from "../../utils/error";
+import { useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const LoginScreen = () => {
+  const { data: session } = useSession();
+  const router = useRouter();
+  const direct = useSearchParams();
+
+  useEffect(() => {
+    if (session?.user) {
+      router.push(direct || "/");
+    }
+  }, [router, session, direct]);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const handleLogin = ({ email, password }) =>
-    console.log(`email: ${email} password: ${password}`);
+  const handleLogin = async ({ email, password }) => {
+    try {
+      const result = await signIn("credentials", {
+        redirect: false,
+        email,
+        password,
+      });
+      if (result.error) {
+        toast.error(result.error);
+      }
+    } catch (err) {
+      toast.error(getError(err));
+    }
+  };
   return (
     <div className="max-w-[1640px] mx-auto flex my-8">
       <form
