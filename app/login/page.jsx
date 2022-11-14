@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import Link from "next/link";
+import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
 import { signIn, useSession } from "next-auth/react";
 import { toast } from "react-toastify";

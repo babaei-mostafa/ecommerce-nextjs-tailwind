@@ -51,15 +51,17 @@ const Navbar = () => {
       <div className="right hidden md:flex items-center justify-end">
         <div className={style.rightDiv}>Register</div>
 
-        {status === "loading" ? (
-          "loading"
-        ) : session?.user ? (
-          session.user.name
-        ) : (
-          <Link href="/login" className={style.rightDiv}>
-            Login
-          </Link>
-        )}
+        <div className={style.rightDiv}>
+          {status === "loading" ? (
+            "loading"
+          ) : session?.user ? (
+            session.user.name
+          ) : (
+            <Link href="/login" className={style.rightDiv}>
+              Login
+            </Link>
+          )}
+        </div>
 
         <div className={style.rightDiv}>
           <Link href="/cart">
